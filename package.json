@@ -4,9 +4,10 @@
   "description": "Luam Candles - Sitio web de velas artesanales",
   "main": "index.html",
   "scripts": {
-    "build": "node build.js",
+    "build": "vite build",
     "start": "npx serve dist",
-    "dev": "npx serve ."
+    "dev": "vite",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [
     "candles",
@@ -16,9 +17,16 @@
   ],
   "author": "Luam Candles",
   "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
     "fs-extra": "^11.3.1",
-    "serve": "^14.2.1"
+    "gh-pages": "^6.0.0",
+    "serve": "^14.2.1",
+    "vite": "^4.4.5"
   },
   "repository": {
     "type": "git",
