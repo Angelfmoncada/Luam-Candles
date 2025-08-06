@@ -1,4 +1,4 @@
-// Datos de productos de Luam Candles - 74 velas artesanales
+// Datos de productos de Luam Candles - 75 velas artesanales
 import { slugMap } from './slugMap.js';
 import { asset } from '../utils/asset.js';
 
@@ -740,13 +740,23 @@ const rawProducts = [
   },
   {
     id: 74,
-    name: "Vela Café Grano",
+    name: "Vela Fin de Año Reflexión",
     category: "tematicas",
-    img: asset('images/74-cafe-grano.png'),
-    scent: "Café recién molido",
+    img: asset('images/74-fin-ano-reflexion.png'),
+    scent: "Reflexión Serena",
+    size: "Large",
+    price: 530,
+    description: "Vela contemplativa para reflexionar sobre el año que termina."
+  },
+  {
+    id: 75,
+    name: "Vela de la Gratitud Infinita",
+    category: "tematicas",
+    img: asset('images/75-gratitud-infinita.png'),
+    scent: "Gratitud Infinita",
     size: "Medium",
-    price: 440,
-    description: "Vela para amantes del café y momentos acogedores."
+    price: 480,
+    description: "Vela especial que inspira gratitud y aprecio por los momentos preciosos de la vida."
   }
 ];
 
@@ -758,10 +768,10 @@ export const products = rawProducts.map(p => ({
 
 // Categorías disponibles
 export const categories = [
-  { id: 'todas', name: 'Todas las Velas', count: 74 },
+  { id: 'todas', name: 'Todas las Velas', count: 75 },
   { id: 'aromaticas', name: 'Aromáticas', count: 25 },
   { id: 'decorativas', name: 'Decorativas', count: 25 },
-  { id: 'tematicas', name: 'Temáticas', count: 24 }
+  { id: 'tematicas', name: 'Temáticas', count: 25 }
 ];
 
 // Productos destacados para la página principal

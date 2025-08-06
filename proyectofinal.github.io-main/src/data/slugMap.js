@@ -75,5 +75,6 @@ export const slugMap = {
   71: asset('images/71-dia-abuelos.png'),
   72: asset('images/72-dia-maestros.png'),
   73: asset('images/73-dia-amistad.png'),
-  74: asset('images/74-fin-ano-reflexion.png')
+  74: asset('images/74-fin-ano-reflexion.png'),
+  75: asset('images/75-gratitud-infinita.png')
 };

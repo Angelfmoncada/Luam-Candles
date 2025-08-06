@@ -7,7 +7,7 @@ import './styles/tailwind.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/proyectofinal.github.io' : '/'}>
+    <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/Luam-Candles' : '/'}>
       <App />
       <Toaster 
         position="top-right"
