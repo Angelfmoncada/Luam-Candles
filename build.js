@@ -1,61 +1,67 @@
 const fs = require('fs-extra');
 const path = require('path');
+const { execSync } = require('child_process');
 
 async function build() {
   try {
     console.log('🚀 Starting build process...');
     
-    const distDir = path.join(__dirname, 'dist');
+    const rootDistDir = path.join(__dirname, 'dist');
     const sourceDir = path.join(__dirname, 'proyectofinal.github.io-main');
+    const viteDistDir = path.join(sourceDir, 'dist');
     
-    // Remove dist directory if it exists
-    if (await fs.pathExists(distDir)) {
+    // Remove root dist directory if it exists
+    if (await fs.pathExists(rootDistDir)) {
       console.log('🗑️  Removing existing dist directory...');
-      await fs.remove(distDir);
+      await fs.remove(rootDistDir);
     }
     
-    // Create new dist directory
-    console.log('📁 Creating dist directory...');
-    await fs.ensureDir(distDir);
+    // Remove vite dist directory if it exists to ensure clean build
+    if (await fs.pathExists(viteDistDir)) {
+      console.log('🗑️  Removing existing vite dist directory...');
+      await fs.remove(viteDistDir);
+    }
     
-    // Copy index.html
-    const indexSource = path.join(sourceDir, 'index.html');
-    const indexDest = path.join(distDir, 'index.html');
-    if (await fs.pathExists(indexSource)) {
-      console.log('📄 Copying index.html...');
-      await fs.copy(indexSource, indexDest);
+    // Run Vite build in the source directory
+    console.log('⚡ Running Vite build...');
+    try {
+      execSync('npm run build', { 
+        cwd: sourceDir, 
+        stdio: 'inherit',
+        encoding: 'utf8'
+      });
+      console.log('✅ Vite build completed successfully!');
+    } catch (buildError) {
+      console.error('❌ Vite build failed:', buildError.message);
+      process.exit(1);
+    }
+    
+    // Create new root dist directory
+    console.log('📁 Creating root dist directory...');
+    await fs.ensureDir(rootDistDir);
+    
+    // Copy the entire vite dist directory to root dist
+    if (await fs.pathExists(viteDistDir)) {
+      console.log('📦 Copying Vite build output...');
+      await fs.copy(viteDistDir, rootDistDir);
     } else {
-      console.warn('⚠️  index.html not found in source directory');
+      console.error('❌ Vite dist directory not found after build');
+      process.exit(1);
     }
     
-    // Copy assets directory
-    const assetsSource = path.join(sourceDir, 'assets');
-    const assetsDest = path.join(distDir, 'assets');
-    if (await fs.pathExists(assetsSource)) {
-      console.log('🎨 Copying assets directory...');
-      await fs.copy(assetsSource, assetsDest);
-    } else {
-      console.warn('⚠️  assets directory not found in source directory');
-    }
-    
-    // Copy images directory
+    // Copy additional static assets (images and videos) that might not be in vite build
     const imagesSource = path.join(sourceDir, 'images');
-    const imagesDest = path.join(distDir, 'images');
+    const imagesDest = path.join(rootDistDir, 'images');
     if (await fs.pathExists(imagesSource)) {
       console.log('🖼️  Copying images directory...');
       await fs.copy(imagesSource, imagesDest);
-    } else {
-      console.warn('⚠️  images directory not found in source directory');
     }
     
-    // Copy videos directory
     const videosSource = path.join(sourceDir, 'videos');
-    const videosDest = path.join(distDir, 'videos');
+    const videosDest = path.join(rootDistDir, 'videos');
     if (await fs.pathExists(videosSource)) {
       console.log('🎬 Copying videos directory...');
       await fs.copy(videosSource, videosDest);
-    } else {
-      console.warn('⚠️  videos directory not found in source directory');
     }
     
     console.log('✅ Build completed successfully!');
