@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const { execSync } = require('child_process');
 
-async function build() {
+async function build(isLocal = false) {
   try {
     console.log('🚀 Starting build process...');
     
@@ -25,7 +25,8 @@ async function build() {
     // Run Vite build in the source directory
     console.log('⚡ Running Vite build...');
     try {
-      execSync('npm run build', { 
+      const buildCommand = isLocal ? 'npm run build -- --base=/' : 'npm run build';
+      execSync(buildCommand, { 
         cwd: sourceDir, 
         stdio: 'inherit',
         encoding: 'utf8'
@@ -73,4 +74,5 @@ async function build() {
 }
 
 // Run the build function
-build();
+const isLocal = process.argv.includes('--local');
+build(isLocal);
