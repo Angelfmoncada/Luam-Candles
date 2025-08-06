@@ -1,0 +1,27 @@
+{
+  "name": "luam-candles",
+  "version": "1.0.0",
+  "description": "Luam Candles - Sitio web de velas artesanales",
+  "main": "index.html",
+  "scripts": {
+    "build": "if exist dist rmdir /S /Q dist && mkdir dist && xcopy /Y proyectofinal.github.io-main\\index.html dist\\ && xcopy /E /Y proyectofinal.github.io-main\\assets dist\\assets\\ && xcopy /E /Y proyectofinal.github.io-main\\images dist\\images\\ && xcopy /E /Y proyectofinal.github.io-main\\videos dist\\videos\\",
+    "start": "npx serve dist",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "candles",
+    "velas",
+    "artesanal",
+    "luam"
+  ],
+  "author": "Luam Candles",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/usuario/Luam-Candles.git"
+  },
+  "homepage": "https://usuario.github.io/Luam-Candles"
+}
